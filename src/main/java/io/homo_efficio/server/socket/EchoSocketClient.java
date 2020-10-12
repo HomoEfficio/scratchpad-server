@@ -23,15 +23,20 @@ public class EchoSocketClient {
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         ) {
+            sleep(5000L);
             out.println(message);
             out.flush();
-            String messageFromServer;
-            while (true) {
-                if ((messageFromServer = in.readLine()) != null) {
-                    System.out.println("OOO Echo from Server: " + messageFromServer);
-                    break;
-                }
-            }
+            // in.readLine() 은 읽을 데이터가 들어올 때까지 blocking 이므로 while (true) 불필요
+            String messageFromServer = in.readLine();
+            System.out.println("OOO Echo from Server: " + messageFromServer);
+        }
+    }
+
+    private static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
