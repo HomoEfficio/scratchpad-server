@@ -19,11 +19,11 @@ public class EchoSocketClient {
     public static void main(String[] args) throws IOException {
         String message = "안녕, echo server";
 
-        try (Socket clientSocket = new Socket(SERVER_HOST_NAME, EchoSocketServer.PORT);
+        try (Socket clientSocket = new Socket(SERVER_HOST_NAME, Constants.SERVER_PORT);
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         ) {
-            sleep(5000L);
+            sleep(8000L);
             out.println(message);
             out.flush();
             // in.readLine() 은 읽을 데이터가 들어올 때까지 blocking 이므로 while (true) 불필요

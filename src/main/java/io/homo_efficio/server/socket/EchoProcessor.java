@@ -18,7 +18,7 @@ public class EchoProcessor {
         ) {
 
             String clientMessage = in.readLine();
-            System.out.println("Msg from client: " + clientMessage);
+            System.out.printf("[%s] Msg from client: %s%n", Thread.currentThread().getName(), clientMessage);
             String serverMessage = "Server Echo - " + clientMessage + "\n";
 
             out.println(serverMessage);

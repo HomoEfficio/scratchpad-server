@@ -8,17 +8,16 @@ import java.net.Socket;
  * @author homo.efficio@gmail.com
  * created on 2020-10-10
  */
-public class EchoSocketServer {
+public class EchoSocketServerSingleThread {
 
-    public static final int PORT = 7777;
 
     public static void main(String[] args) throws IOException {
-        EchoSocketServer echoSocketServer = new EchoSocketServer();
-        echoSocketServer.start();
+        EchoSocketServerSingleThread echoSocketServerSingleThread = new EchoSocketServerSingleThread();
+        echoSocketServerSingleThread.start();
     }
 
     public void start() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(PORT);
+        ServerSocket serverSocket = new ServerSocket(Constants.SERVER_PORT);
         System.out.println("Echo Server 시작");
         System.out.println("Echo Server 대기 중");
 
