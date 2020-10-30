@@ -14,12 +14,11 @@ public class EchoProcessor {
 
     public void echo(Socket socket) throws IOException {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             PrintWriter out = new PrintWriter(socket.getOutputStream());
+             PrintWriter out = new PrintWriter(socket.getOutputStream())
         ) {
 
             String clientMessage = in.readLine();
-            System.out.printf("[%s] Msg from client: %s%n", Thread.currentThread().getName(), clientMessage);
-            String serverMessage = "Server Echo - " + clientMessage + "\n";
+            String serverMessage = "Server Echo - " + clientMessage + System.lineSeparator();
 
             out.println(serverMessage);
             out.flush();

@@ -18,25 +18,24 @@ public class EchoSocketClient {
 
     public static void main(String[] args) throws IOException {
         String message = "안녕, echo server";
+        Utils.clientTimeStamp("Client 시작");
 
         try (Socket clientSocket = new Socket(SERVER_HOST_NAME, Constants.SERVER_PORT);
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
         ) {
-            sleep(8000L);
+            Utils.sleep(800L);
+            Utils.clientTimeStamp("메시지 전송 시작");
             out.println(message);
+            Utils.clientTimeStamp("메시지 print 완료");
             out.flush();
+            Utils.clientTimeStamp("메시지 flush 완료");
+            Utils.clientTimeStamp("서버 Echo 대기...");
             // in.readLine() 은 읽을 데이터가 들어올 때까지 blocking 이므로 while (true) 불필요
             String messageFromServer = in.readLine();
-            System.out.println("OOO Echo from Server: " + messageFromServer);
+            Utils.clientTimeStamp("서버 Echo 도착");
+            Utils.clientTimeStamp("서버 Echo msg: " + messageFromServer);
         }
     }
 
-    private static void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
