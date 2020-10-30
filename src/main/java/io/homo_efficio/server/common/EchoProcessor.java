@@ -13,9 +13,9 @@ import java.nio.charset.StandardCharsets;
  * @author homo.efficio@gmail.com
  * created on 2020-10-10
  */
-public class EchoProcessor {
+public abstract class EchoProcessor {
 
-    public void echo(Socket socket) throws IOException {
+    public static void echo(Socket socket) throws IOException {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter out = new PrintWriter(socket.getOutputStream())
         ) {
@@ -27,7 +27,7 @@ public class EchoProcessor {
         }
     }
 
-    public void echo(SocketChannel socketChannel) throws IOException {
+    public static void echo(SocketChannel socketChannel) throws IOException {
 //        ByteBuffer buf = ByteBuffer.allocateDirect(256);  // backed array 가 없으므로 buf.array() 에서 UnsupportedOperationException 유발
         ByteBuffer buf = ByteBuffer.allocate(256);
         int readBytes = socketChannel.read(buf);

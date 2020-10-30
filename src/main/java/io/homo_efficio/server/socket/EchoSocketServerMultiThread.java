@@ -50,10 +50,9 @@ public class EchoSocketServerMultiThread {
             es.execute(() -> {
                 try {
                     Utils.serverTimeStamp("Client 접속!!!", fos);
-                    EchoProcessor echoProcessor = new EchoProcessor();
                     Utils.serverTimeStamp("Echo 시작", fos);
                     Utils.sleep(3000L);
-                    echoProcessor.echo(acceptedSocket);
+                    EchoProcessor.echo(acceptedSocket);
                     Utils.serverTimeStamp("Echo 완료", fos);
                 } catch (IOException e) {
                     throw new RuntimeException(e);

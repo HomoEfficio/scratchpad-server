@@ -35,9 +35,8 @@ public class EchoSocketServerSingleThread {
             // 연결 요청이 오면 accept() 가 반환하고 요청 처리 로직 수행
             Utils.serverTimeStamp("Client 접속!!!", fos);
             Utils.sleep(5000L);
-            EchoProcessor echoProcessor = new EchoProcessor();
             Utils.serverTimeStamp("Echo 시작", fos);
-            echoProcessor.echo(acceptedSocket);
+            EchoProcessor.echo(acceptedSocket);
             Utils.serverTimeStamp("Echo 완료", fos);
         }
     }

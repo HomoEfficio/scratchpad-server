@@ -129,8 +129,7 @@ public class EchoSelectorServer {
                     Utils.serverTimeStamp("SelectionKey is Readable", fos);
                     SocketChannel clientChannel = (SocketChannel) selectedKey.channel();
                     // echo
-                    EchoProcessor echoProcessor = new EchoProcessor();
-                    echoProcessor.echo(clientChannel);
+                    EchoProcessor.echo(clientChannel);
 
                     // clientChannel.close()를 하지 않으면 selector에 register 된 채로 계속 남아서,
                     // 최상위 while (true) 문 안에 있는 selector.select() 가 계속 1을 반환하면서 무한루프 돌게됨
