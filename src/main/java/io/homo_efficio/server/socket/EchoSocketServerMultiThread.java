@@ -1,5 +1,6 @@
 package io.homo_efficio.server.socket;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,14 +20,16 @@ public class EchoSocketServerMultiThread {
 
     public void start() throws IOException {
         ServerSocket serverSocket = new ServerSocket(Constants.SERVER_PORT);
-        Utils.serverTimeStamp("Echo Server 시작");
+        FileOutputStream fos = Utils.getCommonFileOutputStream();
+        Utils.serverTimeStamp("===============================", fos);
+        Utils.serverTimeStamp("Multi Thread Socket Echo Server 시작", fos);
 
         // 스레드 풀
         ExecutorService es = Executors.newFixedThreadPool(2);
 
         while (true) {
-            Utils.serverTimeStamp("---------------------------");
-            Utils.serverTimeStamp("Echo Server 대기 중");
+            Utils.serverTimeStamp("---------------------------", fos);
+            Utils.serverTimeStamp("Echo Server 대기 중", fos);
 
             // accept() 는 연결 요청이 올 때까지 return 하지 않고 blocking
             Socket acceptedSocket = serverSocket.accept();
@@ -41,12 +44,12 @@ public class EchoSocketServerMultiThread {
 
             //// 연결 요청이 오면 새 thread 에서 요청 처리 로직 수행
             es.execute(() -> {
-                Utils.serverTimeStamp("Client 접속!!!");
-                EchoProcessor echoProcessor = new EchoProcessor();
                 try {
-                    Utils.serverTimeStamp("Echo 시작");
+                    Utils.serverTimeStamp("Client 접속!!!", fos);
+                    EchoProcessor echoProcessor = new EchoProcessor();
+                    Utils.serverTimeStamp("Echo 시작", fos);
                     echoProcessor.echo(acceptedSocket);
-                    Utils.serverTimeStamp("Echo 완료");
+                    Utils.serverTimeStamp("Echo 완료", fos);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
