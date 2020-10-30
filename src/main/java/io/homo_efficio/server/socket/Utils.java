@@ -30,7 +30,7 @@ public abstract class Utils {
     }
 
     private static String buildMessage(String who, String msg) {
-        return String.format("[%s - %s] %s - %s",
+        return String.format("[%s - %15s] %s - %s",
                 who,
                 Thread.currentThread().getName(),
                 LocalDateTime.now(),
