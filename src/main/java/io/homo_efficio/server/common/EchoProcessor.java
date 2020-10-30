@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author homo.efficio@gmail.com
@@ -16,12 +19,24 @@ public class EchoProcessor {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter out = new PrintWriter(socket.getOutputStream())
         ) {
-
             String clientMessage = in.readLine();
             String serverMessage = "Server Echo - " + clientMessage + System.lineSeparator();
 
             out.println(serverMessage);
             out.flush();
         }
+    }
+
+    public void echo(SocketChannel socketChannel) throws IOException {
+//        ByteBuffer buf = ByteBuffer.allocateDirect(256);  // backed array 가 없으므로 buf.array() 에서 UnsupportedOperationException 유발
+        ByteBuffer buf = ByteBuffer.allocate(256);
+        int readBytes = socketChannel.read(buf);
+        System.out.println("readBytes: " + readBytes);
+        String serverMessage = "Server Echo - " + new String(buf.array()).trim() + System.lineSeparator();
+        System.out.println("serverMessage: " + serverMessage);
+        buf.clear();
+        buf.put(serverMessage.getBytes(StandardCharsets.UTF_8));
+        buf.flip();
+        socketChannel.write(buf);
     }
 }

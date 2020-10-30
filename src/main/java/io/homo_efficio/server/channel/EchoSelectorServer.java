@@ -1,6 +1,7 @@
 package io.homo_efficio.server.channel;
 
 import io.homo_efficio.server.common.Constants;
+import io.homo_efficio.server.common.EchoProcessor;
 import io.homo_efficio.server.common.Utils;
 
 import java.io.FileOutputStream;
@@ -127,11 +128,9 @@ public class EchoSelectorServer {
                 if (selectedKey.isReadable()) {
                     Utils.serverTimeStamp("SelectionKey is Readable", fos);
                     SocketChannel clientChannel = (SocketChannel) selectedKey.channel();
-                    // clientChannel 로 들어온 데이터를 읽어서 buf 에 저장
-                    clientChannel.read(buf);
-                    String msg = new String(buf.array()).trim();
-                    Utils.serverTimeStamp("Message from Client: " + msg, fos);
-                    buf.clear();
+                    // echo
+                    EchoProcessor echoProcessor = new EchoProcessor();
+                    echoProcessor.echo(clientChannel);
 
                     // clientChannel.close()를 하지 않으면 selector에 register 된 채로 계속 남아서,
                     // 최상위 while (true) 문 안에 있는 selector.select() 가 계속 1을 반환하면서 무한루프 돌게됨
