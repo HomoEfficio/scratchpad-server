@@ -1,4 +1,4 @@
-package io.homo_efficio.server.socket;
+package io.homo_efficio.server.common;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

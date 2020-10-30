@@ -1,5 +1,8 @@
 package io.homo_efficio.server.socket;
 
+import io.homo_efficio.server.common.Constants;
+import io.homo_efficio.server.common.Utils;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -11,14 +14,12 @@ import java.net.Socket;
  */
 public class EchoSocketClient {
 
-    private static final String SERVER_HOST_NAME = "localhost";
-
     public static void main(String[] args) throws IOException {
         String message = "안녕, echo server";
         FileOutputStream fos = Utils.getCommonFileOutputStream();
         Utils.clientTimeStamp("Client 시작", fos);
 
-        try (Socket clientSocket = new Socket(SERVER_HOST_NAME, Constants.SERVER_PORT);
+        try (Socket clientSocket = new Socket(Constants.SERVER_HOST_NAME, Constants.SERVER_PORT);
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
         ) {

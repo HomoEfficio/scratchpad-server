@@ -1,4 +1,4 @@
-package io.homo_efficio.server.socket;
+package io.homo_efficio.server.common;
 
 /**
  * @author homo.efficio@gmail.com
@@ -7,4 +7,5 @@ package io.homo_efficio.server.socket;
 public abstract class Constants {
 
     public static final int SERVER_PORT = 7777;
+    public static final String SERVER_HOST_NAME = "localhost";
 }
