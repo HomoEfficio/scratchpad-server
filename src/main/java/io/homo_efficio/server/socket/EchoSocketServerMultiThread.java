@@ -29,7 +29,7 @@ public class EchoSocketServerMultiThread {
         Utils.serverTimeStamp("Multi Thread Socket Echo Server 시작", fos);
 
         // 스레드 풀
-        ExecutorService es = Executors.newFixedThreadPool(2);
+        ExecutorService es = Executors.newFixedThreadPool(10);
 
         while (true) {
             Utils.serverTimeStamp("---------------------------", fos);
@@ -51,7 +51,7 @@ public class EchoSocketServerMultiThread {
                 try {
                     Utils.serverTimeStamp("Client 접속!!!", fos);
                     Utils.serverTimeStamp("Echo 시작", fos);
-                    Utils.sleep(3000L);
+                    Utils.sleep(50L);
                     EchoProcessor.echo(acceptedSocket);
                     Utils.serverTimeStamp("Echo 완료", fos);
                 } catch (IOException e) {

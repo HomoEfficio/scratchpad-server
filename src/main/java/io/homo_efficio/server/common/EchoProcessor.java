@@ -22,6 +22,10 @@ public abstract class EchoProcessor {
             String clientMessage = in.readLine();
             String serverMessage = "Server Echo - " + clientMessage + System.lineSeparator();
 
+//            System.out.println("------------------");
+//            System.out.println(serverMessage);
+//            System.out.println("------------------");
+
             out.println(serverMessage);
             out.flush();
         }
@@ -31,9 +35,9 @@ public abstract class EchoProcessor {
 //        ByteBuffer buf = ByteBuffer.allocateDirect(256);  // backed array 가 없으므로 buf.array() 에서 UnsupportedOperationException 유발
         ByteBuffer buf = ByteBuffer.allocate(256);
         int readBytes = socketChannel.read(buf);
-        System.out.println("readBytes: " + readBytes);
+//        System.out.println("readBytes: " + readBytes);
         String serverMessage = "Server Echo - " + new String(buf.array()).trim() + System.lineSeparator();
-        System.out.println("serverMessage: " + serverMessage);
+//        System.out.println("serverMessage: " + serverMessage);
         buf.clear();
         buf.put(serverMessage.getBytes(StandardCharsets.UTF_8));
         buf.flip();

@@ -84,40 +84,40 @@ public class EchoSelectorServer {
 
             Utils.serverTimeStamp("Client 접속!!!, selectedCount: " + selectedCount, fos);
             Set<SelectionKey> selectedKeys = selector.selectedKeys();
-            Utils.serverTimeStamp("selector.selectedKeys().size(): " + selector.selectedKeys().size(), fos);
-            Utils.serverTimeStamp("selector.keys().size(): " + selector.keys().size(), fos);
+//            Utils.serverTimeStamp("selector.selectedKeys().size(): " + selector.selectedKeys().size(), fos);
+//            Utils.serverTimeStamp("selector.keys().size(): " + selector.keys().size(), fos);
             Iterator<SelectionKey> itSelectedKeys = selectedKeys.iterator();
 
             while (itSelectedKeys.hasNext()) {
                 Utils.serverTimeStamp("+++++++++++++++++++", fos);
                 // SelectedKey
                 SelectionKey selectedKey = itSelectedKeys.next();
-                Utils.serverTimeStamp("selectedKey.isValid(): " + selectedKey.isValid(), fos);
-                Utils.serverTimeStamp("selectedKey.selector(): " + selectedKey.selector(), fos);
-                Utils.serverTimeStamp("selectedKey.channel(): " + selectedKey.channel(), fos);
+//                Utils.serverTimeStamp("selectedKey.isValid(): " + selectedKey.isValid(), fos);
+//                Utils.serverTimeStamp("selectedKey.selector(): " + selectedKey.selector(), fos);
+//                Utils.serverTimeStamp("selectedKey.channel(): " + selectedKey.channel(), fos);
 
                 // Interest Ops: channel 이 selector에 register 될 때 지정된 ops 값
                 int interestOps2 = selectedKey.interestOps();
-                Utils.serverTimeStamp("selectedKey.interestOps()  : " + interestOps2, fos);
-                Utils.serverTimeStamp("selectedKey.isInterestedInConnect: " + (interestOps2 & SelectionKey.OP_CONNECT), fos);
-                Utils.serverTimeStamp("selectedKey.isInterestedInAccept : " + (interestOps2 & SelectionKey.OP_ACCEPT), fos);
-                Utils.serverTimeStamp("selectedKey.isInterestedInRead   : " + (interestOps2 & SelectionKey.OP_READ), fos);
-                Utils.serverTimeStamp("selectedKey.isInterestedInWrite  : " + (interestOps2 & SelectionKey.OP_WRITE), fos);
+//                Utils.serverTimeStamp("selectedKey.interestOps()  : " + interestOps2, fos);
+//                Utils.serverTimeStamp("selectedKey.isInterestedInConnect: " + (interestOps2 & SelectionKey.OP_CONNECT), fos);
+//                Utils.serverTimeStamp("selectedKey.isInterestedInAccept : " + (interestOps2 & SelectionKey.OP_ACCEPT), fos);
+//                Utils.serverTimeStamp("selectedKey.isInterestedInRead   : " + (interestOps2 & SelectionKey.OP_READ), fos);
+//                Utils.serverTimeStamp("selectedKey.isInterestedInWrite  : " + (interestOps2 & SelectionKey.OP_WRITE), fos);
 
                 // Ready Ops: select() 의 반환을 유발하는 Ready SelectedKey 의 ops 값
                 int readyOps2 = selectedKey.readyOps();
-                Utils.serverTimeStamp("selectedKey.readyOps()  : " + readyOps2, fos);
-                Utils.serverTimeStamp("selectedKey.isConnectable: " + selectedKey.isConnectable(), fos);
-                Utils.serverTimeStamp("selectedKey.isAcceptable : " + selectedKey.isAcceptable(), fos);
-                Utils.serverTimeStamp("selectedKey.isReadable  : " + selectedKey.isReadable(), fos);
-                Utils.serverTimeStamp("selectedKey.isWritable   : " + selectedKey.isWritable(), fos);
+//                Utils.serverTimeStamp("selectedKey.readyOps()  : " + readyOps2, fos);
+//                Utils.serverTimeStamp("selectedKey.isConnectable: " + selectedKey.isConnectable(), fos);
+//                Utils.serverTimeStamp("selectedKey.isAcceptable : " + selectedKey.isAcceptable(), fos);
+//                Utils.serverTimeStamp("selectedKey.isReadable  : " + selectedKey.isReadable(), fos);
+//                Utils.serverTimeStamp("selectedKey.isWritable   : " + selectedKey.isWritable(), fos);
 
                 if (selectedKey.isAcceptable()) {
                     Utils.serverTimeStamp("SelectionKey is Acceptable", fos);
-                    Utils.serverTimeStamp("serverSocketChannel.equals(selectedKey.channel()): " + serverSocketChannel.equals(selectedKey.channel()), fos);
+//                    Utils.serverTimeStamp("serverSocketChannel.equals(selectedKey.channel()): " + serverSocketChannel.equals(selectedKey.channel()), fos);
                     // serverSocketChannel.accept() 로 (Client)SocketChannel 을 얻고
                     SocketChannel clientSocketChannel = serverSocketChannel.accept();
-                    Utils.serverTimeStamp("clientSocketChannel: " + clientSocketChannel, fos);
+//                    Utils.serverTimeStamp("clientSocketChannel: " + clientSocketChannel, fos);
                     clientSocketChannel.configureBlocking(false);
                     // (Client)SocketChannel 을 selector 에 등록한다.
                     clientSocketChannel.register(selector, SelectionKey.OP_READ);
@@ -129,6 +129,7 @@ public class EchoSelectorServer {
                     Utils.serverTimeStamp("SelectionKey is Readable", fos);
                     SocketChannel clientChannel = (SocketChannel) selectedKey.channel();
                     // echo
+                    Utils.sleep(50L);
                     EchoProcessor.echo(clientChannel);
 
                     // clientChannel.close()를 하지 않으면 selector에 register 된 채로 계속 남아서,
