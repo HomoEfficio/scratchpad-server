@@ -29,7 +29,7 @@ public class EchoSocketServerMultiThread {
         Utils.serverTimeStamp("Multi Thread Socket Echo Server 시작", fos);
 
         // 스레드 풀
-        ExecutorService es = Executors.newFixedThreadPool(10);
+        ExecutorService es = Utils.getCommonExecutorService();
 
         while (true) {
             Utils.serverTimeStamp("---------------------------", fos);

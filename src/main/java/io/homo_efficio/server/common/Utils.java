@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author homo.efficio@gmail.com
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
  */
 public abstract class Utils {
 
-    public static void serverTimeStamp(String msg) throws IOException {
+    public static void serverTimeStamp(String msg) {
         System.out.println(buildMessage("SERVER", msg));
     }
 
@@ -21,7 +23,7 @@ public abstract class Utils {
         os.write(appendNewline(buildMessage("SERVER", msg)).getBytes(StandardCharsets.UTF_8));
     }
 
-    public static void clientTimeStamp(String msg) throws IOException {
+    public static void clientTimeStamp(String msg) {
         System.out.println(buildMessage("CLIENT", msg));
     }
 
@@ -55,5 +57,9 @@ public abstract class Utils {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static ExecutorService getCommonExecutorService() {
+        return Executors.newFixedThreadPool(4);
     }
 }
