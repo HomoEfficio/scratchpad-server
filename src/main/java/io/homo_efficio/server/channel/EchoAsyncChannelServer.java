@@ -29,8 +29,10 @@ public class EchoAsyncChannelServer {
         Utils.serverTimeStamp("Selector Async Channel Echo Server 시작", fos);
 
         // Listening 전용 ServerSocketChannel. 서버가 종료될 때까지 close() 하면 안 됨
-        AsynchronousServerSocketChannel asyncServerSocketChannel = AsynchronousServerSocketChannel.open()
-                .bind(new InetSocketAddress(Constants.SERVER_HOST_NAME, Constants.SERVER_PORT));
+        AsynchronousServerSocketChannel asyncServerSocketChannel =
+                AsynchronousServerSocketChannel
+                        .open(AsynchronousChannelGroup.withThreadPool(es))
+                        .bind(new InetSocketAddress(Constants.SERVER_HOST_NAME, Constants.SERVER_PORT));
         Utils.serverTimeStamp("asyncServerSocketChannel open, bind 완료", fos);
 
         Utils.serverTimeStamp("Async Channel Echo Server accept()", fos);
