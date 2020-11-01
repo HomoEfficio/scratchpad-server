@@ -67,7 +67,7 @@ public abstract class Utils {
         }
     }
 
-    public static ExecutorService getCommonExecutorService() {
-        return Executors.newFixedThreadPool(4);
+    public static ExecutorService getCommonExecutorService(int nThreads) {
+        return Executors.newFixedThreadPool(nThreads);
     }
 }

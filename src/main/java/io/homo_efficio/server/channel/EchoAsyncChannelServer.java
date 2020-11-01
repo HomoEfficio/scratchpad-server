@@ -25,7 +25,7 @@ public class EchoAsyncChannelServer {
     }
 
     public void start() throws IOException {
-        ExecutorService es = Utils.getCommonExecutorService();
+        ExecutorService es = Utils.getCommonExecutorService(4);
         try (FileOutputStream fos = Utils.getCommonFileOutputStream();
              // Listening 전용 ServerSocketChannel. 서버가 종료될 때까지 close() 하면 안 됨
              AsynchronousServerSocketChannel asyncServerSocketChannel =

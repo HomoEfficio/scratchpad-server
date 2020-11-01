@@ -23,7 +23,7 @@ public class EchoSocketServerMultiThread {
 
     public void start() throws IOException {
         // 스레드 풀
-        ExecutorService es = Utils.getCommonExecutorService();
+        ExecutorService es = Utils.getCommonExecutorService(50);
         try (ServerSocket serverSocket = new ServerSocket(Constants.SERVER_PORT);
              FileOutputStream fos = Utils.getCommonFileOutputStream()
         ) {
