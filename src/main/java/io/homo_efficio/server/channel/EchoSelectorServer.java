@@ -8,7 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -27,8 +30,7 @@ public class EchoSelectorServer {
         try (FileOutputStream fos = Utils.getCommonFileOutputStream();
              Selector selector = Selector.open();
              ServerSocketChannel serverSocketChannel = ServerSocketChannel.open()
-                     .bind(new InetSocketAddress(Constants.SERVER_HOST_NAME, Constants.SERVER_PORT));
-
+                     .bind(new InetSocketAddress(Constants.SERVER_HOST_NAME, Constants.SERVER_PORT))
         ) {
             Utils.serverTimeStamp("===============================", fos);
             Utils.serverTimeStamp("Selector Channel Echo Server 시작", fos);

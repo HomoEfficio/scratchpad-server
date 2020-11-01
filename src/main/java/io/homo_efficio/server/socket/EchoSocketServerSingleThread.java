@@ -21,24 +21,26 @@ public class EchoSocketServerSingleThread {
     }
 
     public void start() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(Constants.SERVER_PORT);
-        FileOutputStream fos = Utils.getCommonFileOutputStream();
-        Utils.serverTimeStamp("===============================", fos);
-        Utils.serverTimeStamp("Echo Server 시작", fos);
+        try (ServerSocket serverSocket = new ServerSocket(Constants.SERVER_PORT);
+             FileOutputStream fos = Utils.getCommonFileOutputStream()
+        ) {
 
-        while (true) {
-            Utils.serverTimeStamp("---------------------------", fos);
-            Utils.serverTimeStamp("Single Thread Socket Echo Server 대기 중", fos);
-            // accept() 는 연결 요청이 올 때까지 return 하지 않고 blocking
-            Socket acceptedSocket = serverSocket.accept();
+            Utils.serverTimeStamp("===============================", fos);
+            Utils.serverTimeStamp("Echo Server 시작", fos);
 
-            // 연결 요청이 오면 accept() 가 반환하고 요청 처리 로직 수행
-            Utils.serverTimeStamp("Client 접속!!!", fos);
+            while (true) {
+                Utils.serverTimeStamp("---------------------------", fos);
+                Utils.serverTimeStamp("Single Thread Socket Echo Server 대기 중", fos);
+                // accept() 는 연결 요청이 올 때까지 return 하지 않고 blocking
+                Socket acceptedSocket = serverSocket.accept();
+
+                // 연결 요청이 오면 accept() 가 반환하고 요청 처리 로직 수행
+                Utils.serverTimeStamp("Client 접속!!!", fos);
 //            Utils.sleep(50L);
-            Utils.serverTimeStamp("Echo 시작", fos);
-            EchoProcessor.echo(acceptedSocket);
-            Utils.serverTimeStamp("Echo 완료", fos);
+                Utils.serverTimeStamp("Echo 시작", fos);
+                EchoProcessor.echo(acceptedSocket);
+                Utils.serverTimeStamp("Echo 완료", fos);
+            }
         }
     }
-
 }

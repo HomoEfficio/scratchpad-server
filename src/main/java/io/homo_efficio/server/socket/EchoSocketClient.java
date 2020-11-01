@@ -16,13 +16,13 @@ public class EchoSocketClient {
 
     public static void main(String[] args) throws IOException {
         String message = "안녕, echo server";
-        FileOutputStream fos = Utils.getCommonFileOutputStream();
-        Utils.clientTimeStamp("Client 시작", fos);
 
         try (Socket clientSocket = new Socket(Constants.SERVER_HOST_NAME, Constants.SERVER_PORT);
+             FileOutputStream fos = Utils.getCommonFileOutputStream();
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
         ) {
+            Utils.clientTimeStamp("Client 시작", fos);
             Utils.sleep(800L);
             Utils.clientTimeStamp("메시지 전송 시작", fos);
             out.println(message);
@@ -36,5 +36,4 @@ public class EchoSocketClient {
             Utils.clientTimeStamp("서버 Echo msg: " + messageFromServer, fos);
         }
     }
-
 }
