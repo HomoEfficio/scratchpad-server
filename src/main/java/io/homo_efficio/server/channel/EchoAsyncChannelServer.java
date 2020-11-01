@@ -56,9 +56,8 @@ public class EchoAsyncChannelServer {
                             Utils.serverTimeStamp(exc.getLocalizedMessage(), fos);
                         }
                     });
+            // 서버 종료 방지
+            System.in.read();
         }
-
-        // 서버 종료 방지
-        System.in.read();
     }
 }
