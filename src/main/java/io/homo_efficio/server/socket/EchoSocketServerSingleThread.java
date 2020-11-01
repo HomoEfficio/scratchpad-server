@@ -24,7 +24,6 @@ public class EchoSocketServerSingleThread {
         try (ServerSocket serverSocket = new ServerSocket(Constants.SERVER_PORT);
              FileOutputStream fos = Utils.getCommonFileOutputStream()
         ) {
-
             Utils.serverTimeStamp("===============================", fos);
             Utils.serverTimeStamp("Echo Server 시작", fos);
 

@@ -23,7 +23,7 @@ public class EchoSocketClient {
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
         ) {
             Utils.clientTimeStamp("Client 시작", fos);
-            Utils.sleep(800L);
+            Utils.sleep(5000L);
             Utils.clientTimeStamp("메시지 전송 시작", fos);
             out.println(message);
             Utils.clientTimeStamp("메시지 print 완료", fos);
