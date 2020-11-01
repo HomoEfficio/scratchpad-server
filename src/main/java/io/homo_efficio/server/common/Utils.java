@@ -19,16 +19,24 @@ public abstract class Utils {
         System.out.println(buildMessage("SERVER", msg));
     }
 
-    public static void serverTimeStamp(String msg, OutputStream os) throws IOException {
-        os.write(appendNewline(buildMessage("SERVER", msg)).getBytes(StandardCharsets.UTF_8));
+    public static void serverTimeStamp(String msg, OutputStream os) {
+        try {
+            os.write(appendNewline(buildMessage("SERVER", msg)).getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void clientTimeStamp(String msg) {
         System.out.println(buildMessage("CLIENT", msg));
     }
 
-    public static void clientTimeStamp(String msg, OutputStream os) throws IOException {
-        os.write(appendNewline(buildMessage("CLIENT", msg)).getBytes(StandardCharsets.UTF_8));
+    public static void clientTimeStamp(String msg, OutputStream os) {
+        try {
+            os.write(appendNewline(buildMessage("CLIENT", msg)).getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static String buildMessage(String who, String msg) {
@@ -60,6 +68,6 @@ public abstract class Utils {
     }
 
     public static ExecutorService getCommonExecutorService() {
-        return Executors.newFixedThreadPool(4);
+        return Executors.newFixedThreadPool(50);
     }
 }

@@ -52,18 +52,14 @@ public abstract class EchoProcessor {
         CompletableFuture
                 .runAsync(
                         () -> {
-                            try {
-                                Utils.serverTimeStamp("asyncSocketChannel.read(buf), buf: " + new String(buf.array()).trim(), fos);
-                                asyncSocketChannel.read(buf);
-                            } catch (IOException e) { }
+                            Utils.serverTimeStamp("asyncSocketChannel.read(buf), buf: " + new String(buf.array()).trim(), fos);
+                            asyncSocketChannel.read(buf);
                         }, es
                 )
                 .thenAcceptAsync(
                         aVoid -> {
                             String serverMessage = "Server Echo - " + new String(buf.array()).trim() + System.lineSeparator();
-                            try {
-                                Utils.serverTimeStamp(serverMessage, fos);
-                            } catch (IOException e) { }
+                            Utils.serverTimeStamp(serverMessage, fos);
                             buf.clear();
                             buf.put(serverMessage.getBytes(StandardCharsets.UTF_8));
                             buf.flip();
